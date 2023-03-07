@@ -20,7 +20,6 @@ export rgName=
 export aksName=
 export pipName=
 export appgwVnetName=
-export appgwSnetName=
 export location=
 export appgwName=
 export wafPolicyName=
@@ -64,6 +63,32 @@ az network vnet peering create -n AppGWtoAKSVnetPeering -g $rgName --vnet-name $
 appGWVnetId=$(az network vnet show -n $appgwVnetName -g $rgName -o tsv --query "id")
 az network vnet peering create -n AKStoAppGWVnetPeering -g $rgName --vnet-name $aksVnetName --remote-vnet $appGWVnetId --allow-vnet-access
 ```
+
+```
+# Let's deploy a simple webserver application
+git clone https://github.com/lopes221/aksAppGatewayIngressController.git
+cd deployments
+kubectl creane namespace nginx
+kubectl apply -f nginx-deployment.yaml -n nginx
+kubectl apply -f nginx-service.yaml -n nginx
+kubectl apply -f nginx-ingress.yaml -n nginx
+```
+
+```
+# Getting your Ingress IP
+kubectl get ingress -n nginx
+```
+
+
+By this time you should be able to access your application via IP
+http://your-ingress-ip-here/
+
+
+Go now to your application insight overview, you should see your traffic now from App Gateway Ingress Controller
+
+<img src="docs/images/app_traffic.png"  alt="accessibility text">
+
+
 
 ## Author
 
