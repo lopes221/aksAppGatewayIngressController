@@ -51,12 +51,10 @@ az network application-gateway create -n $appgwName -l westeurope -g $rgName --s
 
 
 ```
-# Enable Application Gateway INgress Controller on AKS
+# Enable Application Gateway Ingress Controller on AKS
 appgwId=$(az network application-gateway show -n $appgwName -g $rgName -o tsv --query "id") 
 az aks enable-addons -n $aksName -g $rgName -a ingress-appgw --appgw-id $appgwId
 ```
-
-
 
 ```
 # Create vnet peerings
@@ -65,11 +63,7 @@ az network vnet peering create -n AppGWtoAKSVnetPeering -g $rgName --vnet-name $
 
 appGWVnetId=$(az network vnet show -n $appgwVnetName -g $rgName -o tsv --query "id")
 az network vnet peering create -n AKStoAppGWVnetPeering -g $rgName --vnet-name $aksVnetName --remote-vnet $appGWVnetId --allow-vnet-access
-
-
-# References
--   https://learn.microsoft.com/en-us/azure/application-gateway/ingress-controller-overview
-
+```
 
 ## Author
 
