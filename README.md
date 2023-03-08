@@ -9,7 +9,6 @@
 
 
 Here we will together deploy an Application Gateway Ingress Controller along with an existing AKS cluster via Azure CLI. <br>
-This content is linked with our Devoteam blog post.
 
 
 # Step by step
